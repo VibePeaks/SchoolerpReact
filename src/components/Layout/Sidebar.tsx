@@ -12,7 +12,13 @@ import {
   FileText,
   Bell,
   Settings,
-  LogOut
+  LogOut,
+  Bus,
+  Package,
+  Smartphone,
+  Library,
+  UserCheck,
+  Monitor
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -32,6 +38,12 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
     { id: 'fees', label: 'Fees', icon: DollarSign, roles: ['admin', 'principal'] },
     { id: 'exams', label: 'Exams', icon: FileText, roles: ['admin', 'principal', 'teacher'] },
     { id: 'notices', label: 'Notices', icon: Bell, roles: ['admin', 'principal', 'teacher'] },
+    { id: 'transport', label: 'Transport', icon: Bus, roles: ['admin', 'principal'], isNew: true },
+    { id: 'inventory', label: 'Inventory', icon: Package, roles: ['admin', 'principal'], isNew: true },
+    { id: 'parent-portal', label: 'Parent Portal', icon: Smartphone, roles: ['admin', 'principal'], isNew: true },
+    { id: 'library', label: 'Library', icon: Library, roles: ['admin', 'principal', 'teacher'], isNew: true },
+    { id: 'hr-payroll', label: 'HR & Payroll', icon: UserCheck, roles: ['admin', 'principal'], isNew: true },
+    { id: 'e-learning', label: 'E-Learning', icon: Monitor, roles: ['admin', 'principal', 'teacher'], isNew: true },
     { id: 'settings', label: 'Settings', icon: Settings, roles: ['admin'] },
   ];
 
@@ -46,7 +58,7 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
         <p className="text-sm text-gray-500 mt-1">Management System</p>
       </div>
 
-      <div className="flex-1 p-4">
+      <div className="flex-1 p-4 overflow-y-auto">
         <div className="mb-6">
           <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
             <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
@@ -67,14 +79,21 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
                 className={cn(
-                  "w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors",
+                  "w-full flex items-center justify-between px-4 py-3 rounded-lg text-left transition-colors",
                   activeTab === item.id
                     ? "bg-blue-50 text-blue-600 border-r-2 border-blue-600"
                     : "text-gray-600 hover:bg-gray-50"
                 )}
               >
-                <Icon size={20} />
-                <span className="font-medium">{item.label}</span>
+                <div className="flex items-center space-x-3">
+                  <Icon size={20} />
+                  <span className="font-medium">{item.label}</span>
+                </div>
+                {item.isNew && (
+                  <span className="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-full font-medium">
+                    New
+                  </span>
+                )}
               </button>
             );
           })}
