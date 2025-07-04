@@ -1,10 +1,13 @@
-
 import React, { useState } from 'react';
 import { AuthProvider } from '@/contexts/AuthContext';
 import Sidebar from '@/components/Layout/Sidebar';
 import Dashboard from '@/components/Dashboard/Dashboard';
 import StudentList from '@/components/Students/StudentList';
 import TeacherList from '@/components/Teachers/TeacherList';
+import ClassList from '@/components/Classes/ClassList';
+import AttendanceTracker from '@/components/Attendance/AttendanceTracker';
+import FeeManagement from '@/components/Fees/FeeManagement';
+import TransportManagement from '@/components/Transport/TransportManagement';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -18,32 +21,13 @@ const Index = () => {
       case 'teachers':
         return <TeacherList />;
       case 'classes':
-        return (
-          <div className="flex items-center justify-center h-96">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Classes Management</h2>
-              <p className="text-gray-600">Class management functionality coming soon...</p>
-            </div>
-          </div>
-        );
+        return <ClassList />;
       case 'attendance':
-        return (
-          <div className="flex items-center justify-center h-96">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Attendance Tracking</h2>
-              <p className="text-gray-600">Attendance management functionality coming soon...</p>
-            </div>
-          </div>
-        );
+        return <AttendanceTracker />;
       case 'fees':
-        return (
-          <div className="flex items-center justify-center h-96">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Fee Management</h2>
-              <p className="text-gray-600">Fee collection and tracking functionality coming soon...</p>
-            </div>
-          </div>
-        );
+        return <FeeManagement />;
+      case 'transport':
+        return <TransportManagement />;
       case 'exams':
         return (
           <div className="flex items-center justify-center h-96">
@@ -59,22 +43,6 @@ const Index = () => {
             <div className="text-center">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Notice Board</h2>
               <p className="text-gray-600">Announcements and notices functionality coming soon...</p>
-            </div>
-          </div>
-        );
-      case 'transport':
-        return (
-          <div className="flex items-center justify-center h-96">
-            <div className="text-center max-w-2xl">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Transport Management</h2>
-              <p className="text-gray-600 mb-4">Comprehensive transport management system coming soon...</p>
-              <div className="text-sm text-gray-500 space-y-1">
-                <p>• Bus routes & stops mapping</p>
-                <p>• Driver/vehicle details</p>
-                <p>• Real-time GPS tracking</p>
-                <p>• RFID/QR attendance</p>
-                <p>• Fuel/maintenance logs</p>
-              </div>
             </div>
           </div>
         );
