@@ -20,25 +20,46 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>({
-    id: '1',
-    name: 'John Administrator',
-    email: 'admin@school.edu',
-    role: 'admin'
+  // Check localStorage for existing user session
+  const [user, setUser] = useState<User | null>(() => {
+    const savedUser = localStorage.getItem('currentUser');
+    if (savedUser) {
+      try {
+        return JSON.parse(savedUser);
+      } catch {
+        localStorage.removeItem('currentUser');
+        return null;
+      }
+    }
+    return null;
   });
 
   const login = (email: string, password: string, role: User['role']) => {
-    // Demo login - in real app this would call an API
-    setUser({
+    const userData = {
       id: '1',
-      name: role === 'admin' ? 'John Administrator' : 'Demo User',
+      name: getRoleDisplayName(role),
       email,
       role
-    });
+    };
+    
+    setUser(userData);
+    localStorage.setItem('currentUser', JSON.stringify(userData));
   };
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem('currentUser');
+  };
+
+  const getRoleDisplayName = (role: User['role']) => {
+    const roleNames = {
+      admin: 'System Administrator',
+      principal: 'School Principal',
+      teacher: 'Teaching Staff',
+      student: 'Student User',
+      parent: 'Parent User'
+    };
+    return roleNames[role];
   };
 
   return (

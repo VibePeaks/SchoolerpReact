@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
-import { AuthProvider } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
+import Login from '@/components/Auth/Login';
 import Sidebar from '@/components/Layout/Sidebar';
 import Dashboard from '@/components/Dashboard/Dashboard';
 import StudentList from '@/components/Students/StudentList';
@@ -16,9 +17,16 @@ import HRPayrollManagement from '@/components/HR/HRPayrollManagement';
 import ELearningManagement from '@/components/ELearning/ELearningManagement';
 import NoticesManagement from '@/components/Notices/NoticesManagement';
 import ExamManagement from '@/components/Exams/ExamManagement';
+import SettingsPage from '@/components/Settings/SettingsPage';
 
 const Index = () => {
+  const { isAuthenticated } = useAuth();
   const [activeTab, setActiveTab] = useState('dashboard');
+
+  // Show login page if not authenticated
+  if (!isAuthenticated) {
+    return <Login />;
+  }
 
   const renderContent = () => {
     switch (activeTab) {
@@ -51,28 +59,19 @@ const Index = () => {
       case 'e-learning':
         return <ELearningManagement />;
       case 'settings':
-        return (
-          <div className="flex items-center justify-center h-96">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">System Settings</h2>
-              <p className="text-gray-600">Configuration and settings functionality coming soon...</p>
-            </div>
-          </div>
-        );
+        return <SettingsPage />;
       default:
         return <Dashboard />;
     }
   };
 
   return (
-    <AuthProvider>
-      <div className="flex min-h-screen bg-gray-50">
-        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-        <main className="flex-1 p-8">
-          {renderContent()}
-        </main>
-      </div>
-    </AuthProvider>
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <main className="flex-1 p-8">
+        {renderContent()}
+      </main>
+    </div>
   );
 };
 
