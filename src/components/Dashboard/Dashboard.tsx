@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Users, GraduationCap, BookOpen, Calendar, DollarSign, TrendingUp, Clock, AlertCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,7 +13,7 @@ const Dashboard = () => {
       change: '+12%',
       trend: 'up' as const,
       icon: Users,
-      color: 'blue'
+      color: 'blue' as const
     },
     {
       title: 'Teaching Staff',
@@ -22,7 +21,7 @@ const Dashboard = () => {
       change: '+3%',
       trend: 'up' as const,
       icon: GraduationCap,
-      color: 'purple'
+      color: 'purple' as const
     },
     {
       title: 'Classes',
@@ -30,7 +29,7 @@ const Dashboard = () => {
       change: '0%',
       trend: 'neutral' as const,
       icon: BookOpen,
-      color: 'green'
+      color: 'green' as const
     },
     {
       title: 'Today\'s Attendance',
@@ -38,7 +37,7 @@ const Dashboard = () => {
       change: '+2.1%',
       trend: 'up' as const,
       icon: Calendar,
-      color: 'orange'
+      color: 'orange' as const
     }
   ];
 
