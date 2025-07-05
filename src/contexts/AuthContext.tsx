@@ -1,4 +1,4 @@
-
+// src/contexts/AuthContext.tsx
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { User } from '@/types';
 
@@ -13,41 +13,27 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
+  if (!context) throw new Error('useAuth must be used within an AuthProvider');
   return context;
 };
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>({
-    id: '1',
-    name: 'John Administrator',
-    email: 'admin@school.edu',
-    role: 'admin'
-  });
+  const [user, setUser] = useState<User | null>(null); // initially null
 
   const login = (email: string, password: string, role: User['role']) => {
-    // Demo login - in real app this would call an API
+    // Fake login logic
     setUser({
       id: '1',
-      name: role === 'admin' ? 'John Administrator' : 'Demo User',
+      name: role === 'admin' ? 'Admin User' : role === 'teacher' ? 'Teacher User' : 'Principal User',
       email,
       role
     });
   };
 
-  const logout = () => {
-    setUser(null);
-  };
+  const logout = () => setUser(null);
 
   return (
-    <AuthContext.Provider value={{
-      user,
-      login,
-      logout,
-      isAuthenticated: !!user
-    }}>
+    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user }}>
       {children}
     </AuthContext.Provider>
   );

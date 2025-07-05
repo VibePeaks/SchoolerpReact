@@ -108,6 +108,8 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
           <LogOut size={20} />
           <span className="font-medium">Logout</span>
         </button>
+        <p className="text-sm text-gray-500 mt-1">Powerd by vibepeks</p>
+
       </div>
     </div>
   );

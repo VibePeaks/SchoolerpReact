@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { AuthProvider } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContext'; // ✅ Import auth context
 import Sidebar from '@/components/Layout/Sidebar';
 import Dashboard from '@/components/Dashboard/Dashboard';
 import StudentList from '@/components/Students/StudentList';
@@ -19,6 +18,9 @@ import ExamManagement from '@/components/Exams/ExamManagement';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
+  const { user } = useAuth(); // ✅ Use the context
+
+  if (!user) return null; // Prevents rendering before login
 
   const renderContent = () => {
     switch (activeTab) {
@@ -65,14 +67,12 @@ const Index = () => {
   };
 
   return (
-    <AuthProvider>
-      <div className="flex min-h-screen bg-gray-50">
-        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-        <main className="flex-1 p-8">
-          {renderContent()}
-        </main>
+    <div className="flex h-screen overflow-hidden bg-gray-50">
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <div className="flex-1 overflow-y-auto p-8">
+        {renderContent()}
       </div>
-    </AuthProvider>
+    </div>
   );
 };
 
