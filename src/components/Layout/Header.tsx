@@ -9,7 +9,7 @@ const Header = () => {
     <div className="w-full flex items-center justify-between h-16">
       {/* Left section - Logo + Title */}
       <div className="flex items-center space-x-3">
-        <img src="src\logo.png" alt="Logo" className="h-8 w-auto" />
+        <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
         <h1 className="text-xl font-bold text-blue-600">SchoolERP</h1>
       </div>
 
